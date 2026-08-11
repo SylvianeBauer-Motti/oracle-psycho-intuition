@@ -37,6 +37,14 @@
     font-size:clamp(30px,5.5vw,44px); margin:0 0 10px;
   }
   .page-header p{ font-size:14px; color:#9aa3b8; line-height:1.6; }
+  .intro{ max-width:520px; margin:26px auto 0; }
+  .intro p{
+    font-size:13.5px; color:#c3cadd; line-height:1.75; margin:0;
+    padding:18px 22px; border-radius:14px;
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
+  }
+  .intro .c-turquoise{ color:var(--turquoise); font-weight:600; }
+  .intro .c-saumon{ color:var(--saumon); font-weight:600; }
 
   .oracle-section{
     max-width:640px; margin:0 auto 90px;
@@ -123,6 +131,11 @@
     border:1px dashed rgba(240,155,145,.4); padding:8px 14px; border-radius:10px;
   }
 
+  .page-footer{ max-width:480px; margin:64px auto 0; text-align:center; }
+  .page-footer .disclaimer{ font-size:12px; color:#8892a8; line-height:1.65; margin:0 0 20px; }
+  .page-footer .cta-psycho{ font-size:13px; color:#c9a24b; line-height:1.65; margin:0; }
+  .page-footer .cta-psycho strong{ color:#e8c977; }
+
   .oracles-row{ display:flex; flex-direction:column; align-items:center; }
   @media (min-width:900px){
     .oracles-row{ flex-direction:row; justify-content:center; align-items:flex-start; gap:48px; }
@@ -144,6 +157,9 @@
   <div class="eyebrow">Psycho · Intuition</div>
   <h1>Les Oracles</h1>
   <p>Deux tirages, deux univers — le hasard révèle une seule carte à la fois.</p>
+  <div class="intro">
+    <p>Avant de tirer, pense à une situation, une question ou une tension qui t'occupe en ce moment — un choix, une relation, une émotion qui revient. <strong class="c-turquoise">Le premier tirage éclaire un biais ou un mécanisme psychologique</strong> qui peut jouer un rôle dans ce que tu vis ; <strong class="c-saumon">le second te propose un outil concret</strong> pour agir dessus. À elles deux, les cartes du jour t'aident autant à comprendre qu'à avancer.</p>
+  </div>
 </div>
 
 <div class="oracles-row">
@@ -195,6 +211,11 @@
   </div>
   <div class="footnote">Tire autant de cartes que tu veux. Les 213 outils restent invisibles jusqu'à leur tirage.</div>
 </div>
+</div>
+
+<div class="page-footer">
+  <p class="disclaimer">Le tirage du jour ne pose aucun diagnostic et n'affirme pas que cette dynamique te concerne. Il te propose une piste d'observation à explorer librement, à partir de ce que tu vis aujourd'hui.</p>
+  <p class="cta-psycho">Envie d'aller plus loin ? Retrouve la fiche complète — avec ses nuances scientifiques, ses exemples, ses références et ses pistes de régulation — dans <strong>Psycho‑Assistant</strong>.</p>
 </div>
 
 <script>
