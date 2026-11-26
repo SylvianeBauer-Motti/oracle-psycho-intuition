@@ -37,7 +37,10 @@ function seededIndex(seed, length) {
 module.exports = async function handler(req, res) {
   const expectedSecret = process.env.CRON_SECRET;
   const authHeader = req.headers['authorization'] || '';
-  if (!expectedSecret || authHeader !== `Bearer ${expectedSecret}`) {
+  // Comparaison insensible à la casse sur "Bearer" et tolérante aux espaces/retours à la ligne
+  // parasites qu'un copier-coller depuis Vercel peut introduire en fin de valeur.
+  const match = /^bearer\s+(.+?)\s*$/i.exec(authHeader);
+  if (!expectedSecret || !match || match[1].trim() !== expectedSecret.trim()) {
     return res.status(401).json({ error: 'Non autorisé' });
   }
 
