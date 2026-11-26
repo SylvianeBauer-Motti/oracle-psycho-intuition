@@ -38,10 +38,10 @@
     font-size:clamp(30px,5.5vw,44px); margin:0 0 10px;
   }
   .page-header p{ font-size:14px; color:#9aa3b8; line-height:1.6; }
-  .intro{ max-width:520px; margin:26px auto 0; }
+  .intro{ max-width:820px; margin:26px auto 0; padding:0 24px; }
   .intro p{
-    font-size:13.5px; color:#c3cadd; line-height:1.75; margin:0;
-    padding:18px 22px; border-radius:14px;
+    font-size:16.5px; color:#c3cadd; line-height:1.75; margin:0;
+    padding:26px 32px; border-radius:14px;
     background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
   }
   .intro .c-turquoise{ color:var(--turquoise); font-weight:600; }
@@ -72,9 +72,14 @@
 
   .card-wrap{ perspective:1400px; width:100%; max-width:360px; }
   .card{
-    position:relative; width:100%; aspect-ratio:5/7;
-    transform-style:preserve-3d; transition:transform .9s cubic-bezier(.2,.8,.25,1); cursor:pointer;
+    position:relative; width:100%;
+    transform-style:preserve-3d; transition:transform .9s cubic-bezier(.2,.8,.25,1), height .3s ease; cursor:pointer;
   }
+  /* Tant que la carte n'est pas retournée (sigil "toucher pour tirer"), elle garde un
+     format carte classique. Une fois retournée, sa hauteur est fixée en pixels par JS
+     (sizeCardToContent) pour tenir tout le texte de la fiche sans jamais faire défiler
+     l'intérieur de la carte — Sylviane ne veut pas de scroll dans la carte. */
+  .card:not(.flipped){ aspect-ratio:5/7; }
   .card.flipped{ transform:rotateY(180deg); cursor:default; }
   .face{
     position:absolute; inset:0; border-radius:18px; backface-visibility:hidden; overflow:hidden;
@@ -365,8 +370,21 @@ async function drawNewCard(oracleId){
   }
 }
 
+// La carte n'a jamais de scroll interne : une fois retournée, sa hauteur est calée en
+// pixels sur la hauteur naturelle du contenu de la fiche (padding compris), quelle que
+// soit sa longueur — plutôt que de couper le texte ou de le faire défiler à l'intérieur.
+function sizeCardToContent(oracleId){
+  const card = document.getElementById('card-' + oracleId);
+  const content = document.getElementById('content-' + oracleId);
+  if(!card || !content) return;
+  card.style.height = content.scrollHeight + 'px';
+}
+
 function initOracle(oracleId){
   document.getElementById(oracleId + '-date').textContent = formatDate();
+  // Pas de sizeCardToContent ici : tant que la carte n'a pas été retournée, elle doit
+  // garder son format carte fixe (aspect-ratio) — fixer une hauteur en pixels dès
+  // maintenant neutraliserait l'aspect-ratio même avant le retournement.
   drawNewCard(oracleId);
 
   const card = document.getElementById('card-' + oracleId);
@@ -374,6 +392,7 @@ function initOracle(oracleId){
 
   card.addEventListener('click', function(){
     if(revealed) return;
+    sizeCardToContent(oracleId);
     this.classList.add('flipped');
     revealed = true;
     document.getElementById('actions-' + oracleId).style.display = 'flex';
@@ -383,12 +402,24 @@ function initOracle(oracleId){
   btn.addEventListener('click', async function(e){
     e.stopPropagation();
     card.classList.remove('flipped');
+    card.style.height = '';
     document.getElementById('actions-' + oracleId).style.display = 'none';
     setTimeout(async function(){
       await drawNewCard(oracleId);
+      sizeCardToContent(oracleId);
       card.classList.add('flipped');
       document.getElementById('actions-' + oracleId).style.display = 'flex';
     }, 480);
+  });
+
+  // Un changement de largeur (rotation du téléphone, redimensionnement de fenêtre) change
+  // la façon dont le texte se répartit en lignes, donc la hauteur naturelle du contenu —
+  // recalcule pour une carte déjà retournée, sinon la hauteur figée devient fausse.
+  let resizeTimer = null;
+  window.addEventListener('resize', function(){
+    if(!card.classList.contains('flipped')) return;
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){ sizeCardToContent(oracleId); }, 150);
   });
 }
 
