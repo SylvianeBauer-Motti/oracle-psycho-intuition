@@ -153,6 +153,10 @@ function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
       <p style="font-size: 13px; color: #c9a24b; text-align:center; margin-top:28px;">
         Envie d'aller plus loin ? Retrouve les fiches complètes dans <a href="https://psycho-intuition.fr/psycho-assistant/" style="color:#b5934a; font-weight:700;"><b>Psycho-Assistant</b></a>.
       </p>
+      <p style="font-size: 14px; color: #2c2c2c; text-align:center; margin-top:32px; line-height:1.6;">
+        Que ta journée soit à la fois inspirée et éclairée&#160;! ☀️<br>
+        <span style="color:#8892a8; font-size:13px;">Sylviane Bauer-Motti — Psycho-Intuition</span>
+      </p>
       <p style="font-size: 11px; color: #999; text-align:center; margin-top:30px;">
         Tu reçois cet email car tu t'es inscrit·e à l'oracle quotidien.
         <a href="${unsubscribeUrl}" style="color:#999;">Se désinscrire</a>
