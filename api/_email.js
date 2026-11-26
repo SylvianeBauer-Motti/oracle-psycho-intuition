@@ -112,11 +112,11 @@ function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
       ${ficheEmailBlock({ e: techEntry, kind: 'techniques' })}
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px auto 0; max-width:480px;">
         <tr>
-          <td style="width:110px; vertical-align:top; padding-right:16px;">
-            <img src="https://oracle.psycho-intuition.fr/assets/personnage-clin-doeil.png" width="94" alt="" style="display:block; width:94px; height:auto;">
-          </td>
-          <td style="vertical-align:top; font-size:14px; line-height:1.6; color:#2c2c2c;">
+          <td style="vertical-align:top; font-size:14px; line-height:1.6; color:#2c2c2c; padding-right:16px;">
             Une fois les deux cartes tirées, prends le temps de les relier&#160;: qu'est-ce que ce <b style="color:#2a9ba8;">biais</b> et cet <b style="color:#b5574a;">outil</b>, mis ensemble, te disent de ce que tu vis en ce moment&#160;? Laisse-toi un instant pour méditer là-dessus avant de passer à la suite.
+          </td>
+          <td style="width:110px; vertical-align:top;">
+            <img src="https://oracle.psycho-intuition.fr/assets/personnage-clin-doeil.png" width="94" alt="" style="display:block; width:94px; height:auto;">
           </td>
         </tr>
       </table>
