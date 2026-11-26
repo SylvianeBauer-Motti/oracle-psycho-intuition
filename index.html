@@ -36,7 +36,7 @@
   .home-link:hover, .home-link:focus-visible{
     color:#eef0f5; border-color:var(--turquoise);
   }
-  .home-link:focus-visible{ outline:2px solid var(--turquoise); outline-offset:3px; }
+  .home-link:focus-visible, .footer-home-link:focus-visible{ outline:2px solid var(--turquoise); outline-offset:3px; }
   .page-header{
     display:grid; grid-template-columns:repeat(3, auto); grid-template-areas:
       "pensif titre serein"
@@ -237,6 +237,13 @@
   .subscribe-status.ok{ color:#6fcf97; }
   .subscribe-status.err{ color:#e07a6e; }
 
+  .footer-home{ margin:24px auto 0; text-align:center; }
+  .footer-home-link{
+    display:inline-flex; align-items:center; min-height:44px; padding:0 8px;
+    color:var(--turquoise); font-size:14px; text-underline-offset:3px;
+  }
+  .footer-home-link:hover{ color:#eef0f5; }
+
   .oracles-row{ display:flex; flex-direction:column; align-items:center; }
   @media (max-width:600px){
     body{ padding-top:28px; padding-bottom:40px; }
@@ -386,6 +393,10 @@
     <div class="subscribe-status" id="subscribeStatus"></div>
   </div>
 </div>
+
+<footer class="footer-home">
+  <a class="footer-home-link" href="https://psycho-intuition.fr/">Revenir à Psycho-Intuition</a>
+</footer>
 
 <script>
 
