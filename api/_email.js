@@ -59,6 +59,13 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
+// Même format que formatDate() côté page web (index.html) : jour de la semaine avec
+// majuscule initiale (toLocaleDateString le rend en minuscule par défaut en fr-FR).
+function formatDate() {
+  const s = new Date().toLocaleDateString('fr-FR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
 // Carte HTML simple (pas de JS, pas de flip — ce n'est qu'un email) pour une fiche biais ou
 // technique du jour. Les couleurs reprennent exactement celles de la page web (index.html,
 // règles #oracle-biais/#oracle-techniques sur .oracle-prompt et .mantra) : bleu pour les
@@ -104,31 +111,34 @@ function ficheEmailBlock({ e, kind }) {
 }
 
 function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
+  const today = formatDate();
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #2c2c2c;">
-      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px; width:100%;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto; width:100%;">
         <tr>
           <td style="width:70px; vertical-align:middle;">
             <img src="https://oracle.psycho-intuition.fr/assets/personnage-pensif.png" width="60" alt="" style="display:block; width:60px; height:auto;">
           </td>
           <td style="vertical-align:middle; text-align:center;">
-            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Le biais cognitif du jour</h1>
+            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Le biais ou filtre cognitif d'aujourd'hui</h1>
           </td>
           <td style="width:70px;"></td>
         </tr>
       </table>
+      <p style="font-size:12.5px; color:#8892a8; text-align:center; margin:2px 0 18px;">${today}</p>
       ${ficheEmailBlock({ e: biaisEntry, kind: 'biais' })}
-      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px; width:100%;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto; width:100%;">
         <tr>
           <td style="width:70px;"></td>
           <td style="vertical-align:middle; text-align:center;">
-            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Et la technique proposée pour y travailler</h1>
+            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">La technique psychopratique d'aujourd'hui</h1>
           </td>
           <td style="width:70px; vertical-align:middle;">
             <img src="https://oracle.psycho-intuition.fr/assets/personnage-serein.png" width="60" alt="" style="display:block; width:60px; height:auto;">
           </td>
         </tr>
       </table>
+      <p style="font-size:12.5px; color:#8892a8; text-align:center; margin:2px 0 18px;">${today}</p>
       ${ficheEmailBlock({ e: techEntry, kind: 'techniques' })}
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px auto 0; max-width:480px;">
         <tr>
