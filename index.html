@@ -2,6 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Les Oracles Psycho-Intuition</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='40' fill='%230d1220'/%3E%3Ccircle cx='100' cy='100' r='72' stroke='%2340AABE' stroke-width='7' fill='none' opacity='0.85'/%3E%3Ccircle cx='100' cy='100' r='50' stroke='%23F09B91' stroke-width='7' fill='none' opacity='0.8'/%3E%3Cpath d='M100 40 C130 70,130 130,100 160 C70 130,70 70,100 40 Z' stroke='%2300B050' stroke-width='8' fill='none' opacity='0.9'/%3E%3Ccircle cx='100' cy='100' r='15' fill='%230070C0'/%3E%3C/svg%3E">
 <style>
@@ -27,7 +28,31 @@
     padding:48px 16px 80px;
   }
   .page-header{
-    max-width:640px; margin:0 auto 56px; text-align:center;
+    display:grid; grid-template-columns:repeat(3, auto); grid-template-areas:
+      "pensif titre serein"
+      "consigne consigne consigne";
+    align-items:center; justify-content:center; gap:14px 8px;
+    max-width:600px; margin:0 auto 40px; text-align:center;
+  }
+  .page-heading{ grid-area:titre; }
+  .page-illustration{ display:block; width:clamp(46px, 16vw, 126px); height:auto; }
+  .page-illustration--pensif{ grid-area:pensif; justify-self:end; }
+  .page-illustration--serein{ grid-area:serein; justify-self:start; }
+  .page-header .intro{ grid-area:consigne; margin:0; padding:0; }
+  .page-header .intro p{ padding:18px 20px; text-align:left; }
+  @media (min-width:900px){
+    .page-header{
+      grid-template-columns:minmax(0, 210px) minmax(0, 640px) minmax(0, 210px);
+      grid-template-areas:
+        "pensif titre serein"
+        "pensif consigne serein";
+      align-content:center; gap:18px 12px;
+      max-width:1084px; margin-bottom:48px;
+    }
+    .page-heading{ align-self:end; }
+    .page-header .intro{ align-self:start; }
+    .page-header .intro p{ padding:22px 28px; }
+    .page-illustration{ width:100%; }
   }
   .page-header .eyebrow{
     font-size:12px; letter-spacing:.28em; text-transform:uppercase;
@@ -37,7 +62,7 @@
     font-family:'Cormorant Garamond',serif; font-weight:600;
     font-size:clamp(30px,5.5vw,44px); margin:0 0 10px;
   }
-  .page-header p{ font-size:14px; color:#9aa3b8; line-height:1.6; }
+  .page-heading p{ margin:0; font-size:14px; color:#9aa3b8; line-height:1.6; }
   .intro{ max-width:900px; margin:26px auto 0; padding:0 24px; }
   .intro p{
     font-size:16.5px; color:#c3cadd; line-height:1.75; margin:0;
@@ -192,7 +217,7 @@
   .oracles-row{ display:flex; flex-direction:column; align-items:center; }
   @media (min-width:900px){
     .oracles-row{ flex-direction:row; justify-content:center; align-items:flex-start; gap:48px; }
-    .oracles-row .oracle-section{ margin:0; flex:0 0 420px; max-width:420px; }
+    .oracles-row .oracle-section{ margin:0; flex:1 1 0; max-width:420px; min-width:0; }
     .oracles-row .oracle-title{ line-height:1.15; min-height:2.3em; }
     .oracles-row .divider{
       flex-direction:column; max-width:none; height:auto; align-self:stretch; margin:0;
@@ -206,14 +231,20 @@
 </head>
 <body>
 
-<div class="page-header">
-  <div class="eyebrow">Psycho · Intuition</div>
-  <h1>Les Oracles</h1>
-  <p>Deux tirages, deux univers — le hasard révèle une seule carte à la fois.</p>
+<header class="page-header">
+  <img class="page-illustration page-illustration--pensif" src="assets/personnage-pensif.png"
+       width="440" height="660" alt="">
+  <div class="page-heading">
+    <div class="eyebrow">Psycho · Intuition</div>
+    <h1>Les Oracles</h1>
+    <p>Deux tirages, deux univers — le hasard révèle une seule carte à la fois.</p>
+  </div>
+  <img class="page-illustration page-illustration--serein" src="assets/personnage-serein.png"
+       width="440" height="660" alt="">
   <div class="intro">
     <p>Avant de tirer, pense à une situation, une question ou une tension qui t'occupe en ce moment — un choix, une relation, une émotion qui revient. <strong class="c-turquoise">Le premier tirage éclaire un biais ou un mécanisme psychologique</strong> qui peut jouer un rôle dans ce que tu vis ; <strong class="c-saumon">le second te propose un outil concret</strong> pour agir dessus. À elles deux, les cartes du jour t'aident autant à comprendre qu'à avancer.</p>
   </div>
-</div>
+</header>
 
 <div class="oracles-row">
 <div class="oracle-section" id="oracle-biais">
