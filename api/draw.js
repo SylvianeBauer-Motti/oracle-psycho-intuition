@@ -1,9 +1,5 @@
 // api/draw.js
-// Tire une carte au hasard côté serveur et ne renvoie QUE cette carte — jamais la base
-// complète (312 biais + 216 techniques), qui reste privée dans _oracle_biais.json /
-// _oracle_techniques.json (préfixés "_", jamais servis par Vercel comme fichier public).
-// Tirage gratuit, sans compte, sans limite : identique au comportement précédent, juste
-// déplacé côté serveur pour que le navigateur ne reçoive jamais la base entière.
+// Le tirage reste côté serveur. Seuls les champs affichés sont renvoyés au navigateur.
 
 const biais = require('./_oracle_biais.json');
 const techniques = require('./_oracle_techniques.json');
@@ -18,5 +14,17 @@ module.exports = async function handler(req, res) {
   if (!list) {
     return res.status(400).json({ error: "Paramètre 'kind' invalide (attendu : 'biais' ou 'techniques')" });
   }
-  return res.status(200).json({ entry: pickRandom(list) });
+  const card = pickRandom(list);
+  const { num, title, oracle_version, mantra } = card;
+  const entry = { num, title, oracle_version, mantra };
+
+  if (kind === 'biais') {
+    entry.type = card.type;
+    if (!oracle_version) entry.definition = card.definition;
+  } else {
+    entry.category = card.category;
+    if (!oracle_version) entry.principe = card.principe;
+  }
+
+  return res.status(200).json({ entry });
 };

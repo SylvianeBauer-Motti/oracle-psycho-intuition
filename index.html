@@ -168,15 +168,6 @@
   .b-exemple h3{ color:#5a5a5a; }
   .b-cle h3{ color:#c4574a; }
 
-  .b-cross-outil{ background:rgba(240,155,145,.10); border-left:3px solid var(--saumon); }
-  .b-cross-outil h3{ color:#c4574a; }
-  .b-cross-biais{ background:rgba(0,112,192,.06); border-left:3px solid var(--blue); }
-  .b-cross-biais h3{ color:#0057a3; }
-  .b-complement{ background:rgba(120,120,120,.05); border-left:3px dotted #aaa; }
-  .b-complement h3{ color:#6a6a6a; }
-  .b-complement p{ margin:0 0 8px; font-size:13px; line-height:1.55; }
-  .b-complement p:last-child{ margin-bottom:0; }
-  .b-complement .comp-label{ font-weight:700; font-style:normal; color:#555; }
   .fiche-num{ font-size:10px; color:#b5ada0; letter-spacing:.08em; margin:-6px 0 14px; }
   .oracle-prompt{ font-size:16px; line-height:1.55; font-weight:500; border-radius:6px; padding:13px 15px; margin:0 0 16px; }
   #oracle-biais .oracle-prompt{ color:#0d3a5c; background:rgba(0,112,192,.10); border-left:3px solid var(--blue, #0070C0); }
@@ -427,8 +418,6 @@ function renderFiche(oracleId, e){
       ${e.num ? `<div class="fiche-num">Fiche #BFC${e.num}#</div>` : ''}
       <p class="fiche-def">${escapeHtml(ov.short || e.definition)}</p>
       ${ov.prompt ? `<div class="oracle-prompt">${escapeHtml(ov.prompt)}</div>` : ''}
-      ${(e.renvoi_outil && e.renvoi_outil.length) ? `<div class="block b-cross-outil"><h3>Outil psychopratique associé</h3><ul>${e.renvoi_outil.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></div>` : ''}
-      ${(e.complement && e.complement.length) ? `<div class="block b-complement">${e.complement.map(c => `<p><span class="comp-label">${escapeHtml(c.label)} — </span>${escapeHtml(c.text)}</p>`).join('')}</div>` : ''}
       ${e.mantra ? `<div class="mantra">« ${escapeHtml(e.mantra)} »</div>` : ''}
     `;
   } else {
@@ -438,7 +427,6 @@ function renderFiche(oracleId, e){
       ${e.num ? `<div class="fiche-num">Fiche #OPP${e.num}#</div>` : ''}
       <p class="fiche-def">${escapeHtml(ov.short || e.principe)}</p>
       ${ov.prompt ? `<div class="oracle-prompt">${escapeHtml(ov.prompt)}</div>` : ''}
-      ${(e.biais_associes && e.biais_associes.length) ? `<div class="block b-cross-biais"><h3>Biais associés</h3><ul>${e.biais_associes.map(r => `<li>${escapeHtml(r)}</li>`).join('')}</ul></div>` : ''}
       ${e.mantra ? `<div class="mantra">« ${escapeHtml(e.mantra)} »</div>` : ''}
     `;
   }
