@@ -71,7 +71,19 @@
   }
   .intro .c-turquoise{ color:var(--turquoise); font-weight:600; }
   .intro .c-saumon{ color:var(--saumon); font-weight:600; }
-  .intro-outro{ margin-top:48px; }
+  .intro-outro{
+    display:grid; grid-template-columns:minmax(0, 1fr) clamp(126px, 20vw, 208px);
+    align-items:center; column-gap:8px; margin-top:48px;
+  }
+  .outro-illustration{
+    display:block; width:100%; height:auto;
+    mask-image:linear-gradient(to bottom, #000 88%, transparent);
+  }
+  @media (max-width:520px){
+    .intro-outro{ grid-template-columns:1fr; padding:0; }
+    .intro-outro p{ padding:18px 20px; }
+    .outro-illustration{ justify-self:end; width:126px; margin-top:6px; }
+  }
 
   .oracle-section{
     max-width:640px; margin:0 auto 90px;
@@ -301,6 +313,8 @@
 
 <div class="intro intro-outro">
   <p>Une fois les deux cartes tirées, prends le temps de les relier : qu'est-ce que ce <strong class="c-turquoise">biais</strong> et cet <strong class="c-saumon">outil</strong>, mis ensemble, te disent de ce que tu vis en ce moment ? Laisse-toi un instant pour méditer là-dessus avant de passer à la suite.</p>
+  <img class="outro-illustration" src="assets/personnage-clin-doeil.png"
+       width="457" height="500" loading="lazy" alt="">
 </div>
 
 <div class="page-footer">
