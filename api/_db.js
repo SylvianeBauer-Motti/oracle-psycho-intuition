@@ -6,7 +6,8 @@
 // ne réutilise pas celle de Psycho-Assistant.
 // Ce fichier commence par "_" : Vercel ne le traite donc pas comme une route/API publique.
 //
-// RGPD a minima : on ne stocke que l'email et la date d'inscription, rien d'autre.
+// RGPD a minima : on ne stocke que l'email, un prénom facultatif et la date d'inscription,
+// rien d'autre.
 
 const crypto = require('crypto');
 const { Redis } = require('@upstash/redis');
@@ -16,17 +17,18 @@ const redis = new Redis({
   token: process.env.KV_REST_API_TOKEN,
 });
 
-const SUBSCRIBER_PREFIX = 'oracle_subscriber:'; // oracle_subscriber:<email en minuscules> -> { email, subscribedAt }
+const SUBSCRIBER_PREFIX = 'oracle_subscriber:'; // oracle_subscriber:<email en minuscules> -> { email, firstName, subscribedAt }
 const ALL_SUBSCRIBERS_SET = 'oracle_all_subscribers'; // set listant tous les emails inscrits
 
 function normalizeEmail(email) {
   return String(email || '').trim().toLowerCase();
 }
 
-async function addSubscriber(email) {
+async function addSubscriber(email, firstName) {
   const key = normalizeEmail(email);
   if (!key) throw new Error('email manquant');
-  await redis.set(SUBSCRIBER_PREFIX + key, { email: key, subscribedAt: Date.now() });
+  const name = String(firstName || '').trim().slice(0, 60) || null;
+  await redis.set(SUBSCRIBER_PREFIX + key, { email: key, firstName: name, subscribedAt: Date.now() });
   await redis.sadd(ALL_SUBSCRIBERS_SET, key);
 }
 
@@ -44,9 +46,13 @@ async function isSubscribed(email) {
   return !!existing;
 }
 
+// Renvoie [{ email, firstName }] pour chaque inscrit·e (firstName peut être null — champ
+// facultatif, et les inscriptions faites avant son ajout n'en ont pas).
 async function listAllSubscribers() {
   const emails = await redis.smembers(ALL_SUBSCRIBERS_SET);
-  return emails || [];
+  if (!emails || !emails.length) return [];
+  const records = await redis.mget(...emails.map((e) => SUBSCRIBER_PREFIX + e));
+  return emails.map((email, i) => ({ email, firstName: (records[i] && records[i].firstName) || null }));
 }
 
 // Jeton de désinscription : un simple HMAC de l'email, pour qu'un lien de désinscription

@@ -1,6 +1,7 @@
 // api/subscribe.js
 // Inscription (facultative, gratuite) à l'oracle quotidien par email. Ne stocke que
-// l'email et la date d'inscription (voir _db.js) — rien d'autre n'est collecté.
+// l'email, un prénom facultatif et la date d'inscription (voir _db.js) — rien d'autre
+// n'est collecté.
 
 const { addSubscriber, normalizeEmail } = require('./_db');
 
@@ -14,12 +15,13 @@ module.exports = async function handler(req, res) {
   }
 
   const email = normalizeEmail((req.body || {}).email);
+  const firstName = (req.body || {}).firstName;
   if (!email || !EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Adresse email invalide' });
   }
 
   try {
-    await addSubscriber(email);
+    await addSubscriber(email, firstName);
     return res.status(200).json({ message: "Inscription confirmée — tu recevras l'oracle du jour par email dès demain !" });
   } catch (err) {
     console.log('[subscribe] erreur:', err.message);

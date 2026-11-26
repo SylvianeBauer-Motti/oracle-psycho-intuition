@@ -110,10 +110,14 @@ function ficheEmailBlock({ e, kind }) {
   `;
 }
 
-function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
+function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl, firstName }) {
   const today = formatDate();
+  const greeting = firstName
+    ? `Bonjour à toi, ${escapeHtml(firstName)}, qui aime réfléchir sur tes pensées&#160;! 💭🌺`
+    : `Bonjour à toi, qui aime réfléchir sur tes pensées&#160;! 💭🌺`;
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #2c2c2c;">
+      <p style="font-size: 16px; text-align:center; margin:0 0 24px;">${greeting}</p>
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto; width:100%;">
         <tr>
           <td style="width:70px; vertical-align:middle;">

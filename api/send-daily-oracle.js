@@ -48,19 +48,19 @@ module.exports = async function handler(req, res) {
   const biaisEntry = biais[seededIndex(today + '|biais', biais.length)];
   const techEntry = techniques[seededIndex(today + '|techniques', techniques.length)];
 
-  const emails = await listAllSubscribers();
+  const subscribers = await listAllSubscribers();
   let sent = 0;
   let failed = 0;
 
-  for (const email of emails) {
+  for (const { email, firstName } of subscribers) {
     const unsubscribeUrl = `https://${req.headers.host}/api/unsubscribe?email=${encodeURIComponent(email)}&token=${unsubscribeToken(email)}`;
     const result = await sendEmail({
       to: email,
       subject: "L'Oracle Psycho-Cognitif du jour",
-      html: dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }),
+      html: dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl, firstName }),
     });
     if (result.ok) sent++; else failed++;
   }
 
-  return res.status(200).json({ ok: true, date: today, subscribers: emails.length, sent, failed });
+  return res.status(200).json({ ok: true, date: today, subscribers: subscribers.length, sent, failed });
 };

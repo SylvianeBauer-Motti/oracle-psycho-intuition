@@ -221,12 +221,12 @@
     .footer-col{ flex:0 1 auto; width:100%; max-width:480px; }
   }
   .subscribe-form{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-  .subscribe-form input[type="email"]{
+  .subscribe-form input[type="email"], .subscribe-form input[type="text"]{
     flex:1 1 240px; max-width:300px; padding:13px 18px; border-radius:100px;
     border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.04);
     color:#eef0f5; font-family:'Manrope',sans-serif; font-size:15px;
   }
-  .subscribe-form input[type="email"]::placeholder{ color:#6c7488; }
+  .subscribe-form input[type="email"]::placeholder, .subscribe-form input[type="text"]::placeholder{ color:#6c7488; }
   .subscribe-form button{
     background:var(--turquoise); border:none; color:#0d1220; font-weight:700;
     padding:13px 26px; border-radius:100px; font-family:'Manrope',sans-serif; font-size:15px;
@@ -389,6 +389,7 @@
     <h3>Reçois l'oracle du jour par email</h3>
     <p>Une fois par jour, une carte de biais et une carte d'outil — directement dans ta boîte mail. Gratuit, désinscription en un clic.</p>
     <form class="subscribe-form" id="subscribeForm">
+      <input type="text" id="subscribeFirstName" placeholder="Prénom (facultatif)">
       <input type="email" id="subscribeEmail" placeholder="ton-email@exemple.com" required>
       <button type="submit" id="subscribeBtn">Je m'inscris</button>
     </form>
@@ -559,9 +560,11 @@ const subscribeForm = document.getElementById('subscribeForm');
 subscribeForm.addEventListener('submit', async function(e){
   e.preventDefault();
   const emailInput = document.getElementById('subscribeEmail');
+  const firstNameInput = document.getElementById('subscribeFirstName');
   const btn = document.getElementById('subscribeBtn');
   const status = document.getElementById('subscribeStatus');
   const email = emailInput.value.trim();
+  const firstName = firstNameInput.value.trim();
   status.textContent = '';
   status.className = 'subscribe-status';
   btn.disabled = true;
@@ -569,13 +572,14 @@ subscribeForm.addEventListener('submit', async function(e){
     const response = await fetch('/api/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email })
+      body: JSON.stringify({ email, firstName })
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Inscription impossible");
     status.textContent = data.message || 'Inscription confirmée — à demain !';
     status.classList.add('ok');
     emailInput.value = '';
+    firstNameInput.value = '';
   } catch (err) {
     status.textContent = err.message;
     status.classList.add('err');
