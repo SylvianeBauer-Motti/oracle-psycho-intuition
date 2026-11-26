@@ -5,13 +5,14 @@
 <title>Les Oracles Psycho-Intuition</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='40' fill='%230d1220'/%3E%3Ccircle cx='100' cy='100' r='72' stroke='%2340AABE' stroke-width='7' fill='none' opacity='0.85'/%3E%3Ccircle cx='100' cy='100' r='50' stroke='%23F09B91' stroke-width='7' fill='none' opacity='0.8'/%3E%3Cpath d='M100 40 C130 70,130 130,100 160 C70 130,70 70,100 40 Z' stroke='%2300B050' stroke-width='8' fill='none' opacity='0.9'/%3E%3Ccircle cx='100' cy='100' r='15' fill='%230070C0'/%3E%3C/svg%3E">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,500&family=Manrope:wght@400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap');
 
   :root{
     --ink:#0d1220;
     --blue:#0070C0;
     --green:#00B050;
     --saumon:#F09B91;
+    --saumon-deep:#C77B6F;
     --turquoise:#40AABE;
   }
   *{box-sizing:border-box;}
@@ -94,9 +95,10 @@
   .scroll-inner::-webkit-scrollbar{ width:6px; }
   .scroll-inner::-webkit-scrollbar-thumb{ background:#d8d2c4; border-radius:3px; }
 
-  .fiche-tag{ display:inline-block; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a8a; background:#eee7d8; padding:3px 9px; border-radius:100px; margin-bottom:7px; }
-  .fiche-title{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:19px; line-height:1.15; color:var(--turquoise); margin:0 0 10px; }
-  .fiche-def{ font-size:13px; line-height:1.55; color:#333; margin:0 0 14px; font-style:italic; }
+  .fiche-tag{ display:inline-block; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#8a8a8a; background:#eee7d8; padding:3px 9px; border-radius:100px; margin-bottom:8px; }
+  .fiche-title{ font-family:'Cormorant Garamond',serif; font-weight:700; font-size:22px; line-height:1.15; color:var(--turquoise); margin:0 0 12px; }
+  #oracle-techniques .fiche-title{ color:var(--saumon-deep); }
+  .fiche-def{ font-size:14px; line-height:1.6; color:#333; margin:0 0 16px; font-style:italic; }
   .block{ margin-bottom:14px; border-radius:10px; padding:12px 14px; }
   .block h3{ margin:0 0 5px; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; font-weight:700; }
   .block p{ margin:0; font-size:13.5px; line-height:1.62; }
@@ -122,7 +124,7 @@
   .b-complement p:last-child{ margin-bottom:0; }
   .b-complement .comp-label{ font-weight:700; font-style:normal; color:#555; }
   .fiche-num{ font-size:10px; color:#b5ada0; letter-spacing:.08em; margin:-6px 0 14px; }
-  .oracle-prompt{ font-size:13px; line-height:1.55; border-radius:6px; padding:11px 13px; margin:0 0 14px; }
+  .oracle-prompt{ font-size:16px; line-height:1.55; font-weight:500; border-radius:6px; padding:13px 15px; margin:0 0 16px; }
   #oracle-biais .oracle-prompt{ color:#0d3a5c; background:rgba(0,112,192,.10); border-left:3px solid var(--blue, #0070C0); }
   #oracle-techniques .oracle-prompt{ color:#6b2b24; background:rgba(240,155,145,.18); border-left:3px solid var(--saumon, #c4574a); }
   .mantra{ margin-top:18px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px; color:#8a3b32; padding:14px 10px; border-top:1px solid #e4ddcb; border-bottom:1px solid #e4ddcb; }
@@ -140,20 +142,28 @@
     border:1px dashed rgba(240,155,145,.4); padding:8px 14px; border-radius:10px;
   }
 
-  .page-footer{ max-width:480px; margin:64px auto 0; text-align:center; }
-  .page-footer .disclaimer{ font-size:11.5px; color:#6d7489; line-height:1.6; margin:0 0 20px; }
-  .page-footer .cta-psycho{ font-size:17px; color:#c9a24b; line-height:1.55; margin:0; font-weight:600; }
-  .page-footer .cta-psycho strong{ color:#e8c977; }
+  .page-footer{ max-width:640px; margin:64px auto 0; text-align:center; }
+  .page-footer .disclaimer{ font-size:11.5px; color:#6d7489; line-height:1.6; margin:0; }
 
-  .subscribe-block{
-    max-width:520px; margin:40px auto 0; text-align:center;
-    border-top:1px solid rgba(255,255,255,.08); padding-top:32px;
+  .footer-columns{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+    gap:48px; max-width:1100px; margin:40px auto 0; padding:36px 24px 0;
+    border-top:1px solid rgba(255,255,255,.08);
   }
+  .footer-col{ flex:1 1 380px; max-width:480px; text-align:center; }
+  .cta-psycho{ font-size:18px; color:#c9a24b; line-height:1.55; margin:0; font-weight:600; }
+  .cta-psycho strong{ color:#e8c977; }
+
+  .subscribe-block{ margin:0; }
   .subscribe-block h3{
     font-family:'Cormorant Garamond',serif; font-weight:700; color:var(--turquoise);
     font-size:27px; margin:0 0 10px;
   }
   .subscribe-block p{ font-size:15px; color:#b7bfd2; line-height:1.6; margin:0 0 18px; }
+  @media (max-width:760px){
+    .footer-columns{ flex-direction:column; gap:40px; }
+    .footer-col{ max-width:100%; }
+  }
   .subscribe-form{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   .subscribe-form input[type="email"]{
     flex:1 1 240px; max-width:300px; padding:13px 18px; border-radius:100px;
@@ -253,17 +263,21 @@
 
 <div class="page-footer">
   <p class="disclaimer">Le tirage du jour ne pose aucun diagnostic et n'affirme pas que cette dynamique te concerne. Il te propose une piste d'observation à explorer librement, à partir de ce que tu vis aujourd'hui.</p>
-  <p class="cta-psycho">Envie d'aller plus loin ? Retrouve la fiche complète — avec ses nuances scientifiques, ses exemples, ses références et ses pistes de régulation — dans <strong>Psycho‑Assistant</strong>.</p>
 </div>
 
-<div class="subscribe-block">
-  <h3>Reçois l'oracle du jour par email</h3>
-  <p>Une fois par jour, la même carte de biais et la même carte d'outil que celles tirées ici aujourd'hui — directement dans ta boîte mail. Gratuit, désinscription en un clic.</p>
-  <form class="subscribe-form" id="subscribeForm">
-    <input type="email" id="subscribeEmail" placeholder="ton-email@exemple.com" required>
-    <button type="submit" id="subscribeBtn">Je m'inscris</button>
-  </form>
-  <div class="subscribe-status" id="subscribeStatus"></div>
+<div class="footer-columns">
+  <div class="footer-col">
+    <p class="cta-psycho">Envie d'aller plus loin ? Retrouve les fiches complètes — avec leurs nuances scientifiques, leurs exemples, leurs références et leurs pistes de régulation — dans <strong>Psycho‑Assistant</strong>.</p>
+  </div>
+  <div class="footer-col subscribe-block">
+    <h3>Reçois l'oracle du jour par email</h3>
+    <p>Une fois par jour, une carte de biais et une carte d'outil — directement dans ta boîte mail. Gratuit, désinscription en un clic.</p>
+    <form class="subscribe-form" id="subscribeForm">
+      <input type="email" id="subscribeEmail" placeholder="ton-email@exemple.com" required>
+      <button type="submit" id="subscribeBtn">Je m'inscris</button>
+    </form>
+    <div class="subscribe-status" id="subscribeStatus"></div>
+  </div>
 </div>
 
 <script>
