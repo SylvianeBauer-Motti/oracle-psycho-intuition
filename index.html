@@ -319,7 +319,7 @@
 <div class="oracles-row">
 <div class="oracle-section" id="oracle-biais">
   <span class="oracle-kicker">Un biais à repérer</span>
-  <h2 class="oracle-title">L'Oracle des Biais Cognitifs</h2>
+  <h2 class="oracle-title">Le biais ou filtre cognitif d'aujourd'hui</h2>
   <div class="oracle-sub" id="oracle-biais-date"></div>
   <div class="card-wrap">
     <div class="card" id="card-oracle-biais">
@@ -346,7 +346,7 @@
 
 <div class="oracle-section" id="oracle-techniques">
   <span class="oracle-kicker">Une technique à pratiquer</span>
-  <h2 class="oracle-title">L'Oracle des Outils Psychologiques</h2>
+  <h2 class="oracle-title">La technique psychopratique d'aujourd'hui</h2>
   <div class="oracle-sub" id="oracle-techniques-date"></div>
   <div class="card-wrap">
     <div class="card" id="card-oracle-techniques">
@@ -464,7 +464,8 @@ function paragraphize(text){
 
 function formatDate(){
   const d = new Date();
-  return d.toLocaleDateString('fr-FR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  const s = d.toLocaleDateString('fr-FR', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 const state = {};
