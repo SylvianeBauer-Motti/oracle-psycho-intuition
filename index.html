@@ -38,9 +38,16 @@
   .page-illustration{ display:block; width:clamp(46px, 16vw, 126px); height:auto; }
   .page-illustration--pensif{
     grid-area:pensif; justify-self:end;
-    transform:scale(1.11); transform-origin:left bottom;
+    transform:scale(1.08); transform-origin:left bottom;
   }
-  .page-illustration--serein{ grid-area:serein; justify-self:start; }
+  .page-illustration--serein{
+    grid-area:serein; justify-self:start;
+    mask-image:
+      radial-gradient(ellipse 85% 70% at 54% 65%, #000 92%, transparent 100%),
+      linear-gradient(to bottom, transparent, #000 3%),
+      linear-gradient(to left, transparent, #000 9%);
+    mask-composite:intersect;
+  }
   .page-header .intro{ grid-area:consigne; margin:0; padding:0; }
   .page-header .intro p{ padding:18px 20px; text-align:left; }
   @media (min-width:900px){
@@ -232,13 +239,17 @@
       width:min(100%, clamp(124px, 39vw, 156px)); justify-self:center; align-self:end;
     }
     .page-illustration--pensif{
-      width:min(100%, clamp(138px, 43.3vw, 173px)); transform:none;
+      width:min(100%, clamp(134px, 42.1vw, 168px)); transform:none;
     }
     .oracle-section{ margin-bottom:36px; gap:16px; }
     .oracle-section:last-of-type{ margin-bottom:0; }
     .oracle-sub{ margin-top:-8px; }
     .divider{ width:min(100%, 296px); margin-bottom:32px; }
-    .card-wrap{ max-width:296px; }
+    /* La face de lecture occupe toute la largeur disponible, même avant le
+       retournement, pour mesurer sa hauteur au bon format. */
+    .card:not(.flipped){ aspect-ratio:auto; }
+    .card .face-back{ max-width:296px; margin-inline:auto; }
+    .card:not(.flipped) .face-back{ position:relative; inset:auto; aspect-ratio:5/7; }
     .intro-outro{ display:block; padding:0; margin-top:32px; }
     .outro-message{
       display:flow-root; padding:16px 18px; border-radius:14px;
