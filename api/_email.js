@@ -106,12 +106,21 @@ function ficheEmailBlock({ e, kind }) {
 function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #2c2c2c;">
-      <h1 style="color: #2a7f7e; font-size: 22px; text-align:center;">L'oracle du jour</h1>
-      <p style="font-size:16px; font-weight:700; color:#0057a3; margin:0 0 10px;">Le biais cognitif du jour&#8239;:</p>
+      <h1 style="color: #2a7f7e; font-size: 22px; text-align:center; margin:0 0 20px;">Le biais cognitif du jour</h1>
       ${ficheEmailBlock({ e: biaisEntry, kind: 'biais' })}
-      <p style="font-size:16px; font-weight:700; color:#C77B6F; margin:0 0 10px;">Et la technique proposée pour y travailler&#8239;:</p>
+      <h1 style="color: #2a7f7e; font-size: 22px; text-align:center; margin:0 0 20px;">Et la technique proposée pour y travailler</h1>
       ${ficheEmailBlock({ e: techEntry, kind: 'techniques' })}
-      <p style="font-size: 13px; color: #c9a24b; text-align:center; margin-top:20px;">
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px auto 0; max-width:480px;">
+        <tr>
+          <td style="width:110px; vertical-align:top; padding-right:16px;">
+            <img src="https://oracle.psycho-intuition.fr/assets/personnage-clin-doeil.png" width="94" alt="" style="display:block; width:94px; height:auto;">
+          </td>
+          <td style="vertical-align:top; font-size:14px; line-height:1.6; color:#2c2c2c;">
+            Une fois les deux cartes tirées, prends le temps de les relier&#160;: qu'est-ce que ce <b style="color:#2a9ba8;">biais</b> et cet <b style="color:#b5574a;">outil</b>, mis ensemble, te disent de ce que tu vis en ce moment&#160;? Laisse-toi un instant pour méditer là-dessus avant de passer à la suite.
+          </td>
+        </tr>
+      </table>
+      <p style="font-size: 13px; color: #c9a24b; text-align:center; margin-top:28px;">
         Envie d'aller plus loin ? Retrouve les fiches complètes dans <a href="https://psycho-intuition.fr/psycho-assistant/" style="color:#b5934a; font-weight:700;"><b>Psycho-Assistant</b></a>.
       </p>
       <p style="font-size: 11px; color: #999; text-align:center; margin-top:30px;">
