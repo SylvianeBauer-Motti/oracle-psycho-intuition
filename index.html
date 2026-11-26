@@ -133,6 +133,7 @@
   #oracle-biais .oracle-prompt{ color:#0d3a5c; background:rgba(0,112,192,.10); border-left:3px solid var(--blue, #0070C0); }
   #oracle-techniques .oracle-prompt{ color:#6b2b24; background:rgba(240,155,145,.18); border-left:3px solid var(--saumon, #c4574a); }
   .mantra{ margin-top:18px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px; color:#8a3b32; padding:14px 10px; border-top:1px solid #e4ddcb; border-bottom:1px solid #e4ddcb; }
+  #oracle-biais .mantra{ color:#0d3a5c; }
 
   .actions{ display:flex; gap:12px; margin-top:4px; }
   button.ghost{
@@ -370,29 +371,36 @@ async function drawNewCard(oracleId){
   }
 }
 
-// La carte n'a jamais de scroll interne : une fois retournée, sa hauteur est calée en
-// pixels sur la hauteur naturelle du contenu de la fiche (padding compris), quelle que
-// soit sa longueur — plutôt que de couper le texte ou de le faire défiler à l'intérieur.
-function sizeCardToContent(oracleId){
-  const card = document.getElementById('card-' + oracleId);
-  const content = document.getElementById('content-' + oracleId);
-  if(!card || !content) return;
-  card.style.height = content.scrollHeight + 'px';
+// Ni scroll dans la carte, ni largeur ni hauteur différente entre les deux cartes : les
+// deux largeurs sont déjà identiques par construction (même règle CSS pour les deux
+// colonnes) ; la hauteur, elle, dépend du contenu de CHAQUE fiche, donc calculée en JS —
+// on prend la plus haute des deux et on l'applique AUX DEUX cartes, jamais chacune pour
+// soi, pour qu'elles restent toujours alignées quelle que soit la longueur de l'une ou
+// de l'autre.
+function syncCardHeights(){
+  const biaisContent = document.getElementById('content-oracle-biais');
+  const techContent = document.getElementById('content-oracle-techniques');
+  const biaisCard = document.getElementById('card-oracle-biais');
+  const techCard = document.getElementById('card-oracle-techniques');
+  if(!biaisContent || !techContent || !biaisCard || !techCard) return;
+  const h = Math.max(biaisContent.scrollHeight, techContent.scrollHeight);
+  biaisCard.style.height = h + 'px';
+  techCard.style.height = h + 'px';
 }
 
 function initOracle(oracleId){
   document.getElementById(oracleId + '-date').textContent = formatDate();
-  // Pas de sizeCardToContent ici : tant que la carte n'a pas été retournée, elle doit
-  // garder son format carte fixe (aspect-ratio) — fixer une hauteur en pixels dès
-  // maintenant neutraliserait l'aspect-ratio même avant le retournement.
-  drawNewCard(oracleId);
+  // Le dessin initial est lancé ici, mais la mise à hauteur commune n'a lieu qu'une
+  // fois que LES DEUX oracles ont fini de se charger (voir plus bas, après les deux
+  // appels à initOracle) — impossible de prendre le maximum des deux avant d'avoir les
+  // deux contenus.
+  const drawPromise = drawNewCard(oracleId);
 
   const card = document.getElementById('card-' + oracleId);
   let revealed = false;
 
   card.addEventListener('click', function(){
     if(revealed) return;
-    sizeCardToContent(oracleId);
     this.classList.add('flipped');
     revealed = true;
     document.getElementById('actions-' + oracleId).style.display = 'flex';
@@ -402,29 +410,28 @@ function initOracle(oracleId){
   btn.addEventListener('click', async function(e){
     e.stopPropagation();
     card.classList.remove('flipped');
-    card.style.height = '';
     document.getElementById('actions-' + oracleId).style.display = 'none';
     setTimeout(async function(){
       await drawNewCard(oracleId);
-      sizeCardToContent(oracleId);
+      syncCardHeights();
       card.classList.add('flipped');
       document.getElementById('actions-' + oracleId).style.display = 'flex';
     }, 480);
   });
 
-  // Un changement de largeur (rotation du téléphone, redimensionnement de fenêtre) change
-  // la façon dont le texte se répartit en lignes, donc la hauteur naturelle du contenu —
-  // recalcule pour une carte déjà retournée, sinon la hauteur figée devient fausse.
-  let resizeTimer = null;
-  window.addEventListener('resize', function(){
-    if(!card.classList.contains('flipped')) return;
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function(){ sizeCardToContent(oracleId); }, 150);
-  });
+  return drawPromise;
 }
 
-initOracle('oracle-biais');
-initOracle('oracle-techniques');
+// Un changement de largeur (rotation du téléphone, redimensionnement de fenêtre) change
+// la façon dont le texte se répartit en lignes, donc la hauteur naturelle du contenu —
+// recalcule pour les deux cartes à chaque fois, sinon la hauteur figée devient fausse.
+let resizeTimer = null;
+window.addEventListener('resize', function(){
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(syncCardHeights, 150);
+});
+
+Promise.all([initOracle('oracle-biais'), initOracle('oracle-techniques')]).then(syncCardHeights);
 
 // --- Inscription à l'oracle quotidien par email ---
 const subscribeForm = document.getElementById('subscribeForm');
