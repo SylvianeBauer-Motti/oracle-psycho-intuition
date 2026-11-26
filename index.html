@@ -36,7 +36,7 @@
   .home-link:hover, .home-link:focus-visible{
     color:#eef0f5; border-color:var(--turquoise);
   }
-  .home-link:focus-visible, .footer-home-link:focus-visible{ outline:2px solid var(--turquoise); outline-offset:3px; }
+  .home-link:focus-visible, .footer-home-link:focus-visible, .cta-psycho a:focus-visible{ outline:2px solid var(--turquoise); outline-offset:3px; }
   .page-header{
     display:grid; grid-template-columns:repeat(3, auto); grid-template-areas:
       "pensif titre serein"
@@ -207,7 +207,8 @@
   }
   .footer-col{ flex:1 1 380px; max-width:480px; text-align:center; }
   .cta-psycho{ font-size:18px; color:#c9a24b; line-height:1.55; margin:0; font-weight:600; }
-  .cta-psycho strong{ color:#e8c977; }
+  .cta-psycho a{ color:#e8c977; font-weight:700; text-underline-offset:3px; }
+  .cta-psycho a:hover{ color:#eef0f5; }
 
   .subscribe-block{ margin:0; }
   .subscribe-block h3{
@@ -381,7 +382,7 @@
 
 <div class="footer-columns">
   <div class="footer-col">
-    <p class="cta-psycho">Envie d'aller plus loin ? Retrouve les fiches complètes — avec leurs nuances scientifiques, leurs exemples, leurs références et leurs pistes de régulation — dans <strong>Psycho‑Assistant</strong>.</p>
+    <p class="cta-psycho">Envie d'aller plus loin ? Retrouve les fiches complètes — avec leurs nuances scientifiques, leurs exemples, leurs références et leurs pistes de régulation — dans <a href="https://psycho-intuition.fr/psycho-assistant/">Psycho‑Assistant</a>.</p>
   </div>
   <div class="footer-col subscribe-block">
     <h3>Reçois l'oracle du jour par email</h3>
