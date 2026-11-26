@@ -120,7 +120,7 @@ function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
             <img src="https://oracle.psycho-intuition.fr/assets/personnage-pensif.png" width="60" alt="" style="display:block; width:60px; height:auto;">
           </td>
           <td style="vertical-align:middle; text-align:center;">
-            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Le biais ou filtre cognitif d'aujourd'hui</h1>
+            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Le filtre cognitif d'aujourd'hui</h1>
           </td>
           <td style="width:70px;"></td>
         </tr>
