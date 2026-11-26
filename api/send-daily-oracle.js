@@ -56,7 +56,7 @@ module.exports = async function handler(req, res) {
     const unsubscribeUrl = `https://${req.headers.host}/api/unsubscribe?email=${encodeURIComponent(email)}&token=${unsubscribeToken(email)}`;
     const result = await sendEmail({
       to: email,
-      subject: "L'oracle du jour — Psycho-Intuition",
+      subject: "L'Oracle Psycho-Cognitif du jour",
       html: dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }),
     });
     if (result.ok) sent++; else failed++;
