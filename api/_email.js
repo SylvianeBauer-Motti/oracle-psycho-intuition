@@ -118,7 +118,7 @@ function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl, firstName
       <p style="font-size: 16px; text-align:left; margin:0 0 24px;">
         Bonjour à toi${greetingName},<br>
         qui aimes réfléchir sur tes pensées&#160;! 💭🌺<br><br>
-        Que pouvons-nous apprendre de nous-mêmes en cette belle journée&#160;?
+        🌺 Que pouvons-nous apprendre de nous-mêmes en cette belle journée&#160;? 🌺
       </p>
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto; width:100%;">
         <tr>
