@@ -106,9 +106,29 @@ function ficheEmailBlock({ e, kind }) {
 function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl }) {
   return `
     <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #2c2c2c;">
-      <h1 style="color: #2a7f7e; font-size: 22px; text-align:center; margin:0 0 20px;">Le biais cognitif du jour</h1>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px; width:100%;">
+        <tr>
+          <td style="width:70px; vertical-align:middle;">
+            <img src="https://oracle.psycho-intuition.fr/assets/personnage-pensif.png" width="60" alt="" style="display:block; width:60px; height:auto;">
+          </td>
+          <td style="vertical-align:middle; text-align:center;">
+            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Le biais cognitif du jour</h1>
+          </td>
+          <td style="width:70px;"></td>
+        </tr>
+      </table>
       ${ficheEmailBlock({ e: biaisEntry, kind: 'biais' })}
-      <h1 style="color: #2a7f7e; font-size: 22px; text-align:center; margin:0 0 20px;">Et la technique proposée pour y travailler</h1>
+      <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto 20px; width:100%;">
+        <tr>
+          <td style="width:70px;"></td>
+          <td style="vertical-align:middle; text-align:center;">
+            <h1 style="color: #2a7f7e; font-size: 22px; margin:0;">Et la technique proposée pour y travailler</h1>
+          </td>
+          <td style="width:70px; vertical-align:middle;">
+            <img src="https://oracle.psycho-intuition.fr/assets/personnage-serein.png" width="60" alt="" style="display:block; width:60px; height:auto;">
+          </td>
+        </tr>
+      </table>
       ${ficheEmailBlock({ e: techEntry, kind: 'techniques' })}
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:28px auto 0; max-width:480px;">
         <tr>
