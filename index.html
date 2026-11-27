@@ -174,6 +174,8 @@
   #oracle-techniques .oracle-prompt{ color:#6b2b24; background:rgba(240,155,145,.18); border-left:3px solid var(--saumon, #c4574a); }
   .mantra{ margin-top:18px; text-align:center; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:23px; color:#8a3b32; padding:14px 10px; border-top:1px solid #e4ddcb; border-bottom:1px solid #e4ddcb; }
   #oracle-biais .mantra{ color:#0057a3; }
+  .oracle-illustration{ display:block; width:clamp(96px, 28vw, 128px); max-width:100%; height:auto; margin:10px auto 0; }
+  .outro-message .oracle-illustration{ clear:both; }
 
   .actions{ display:flex; gap:12px; margin-top:4px; }
   button.ghost{
@@ -364,7 +366,9 @@
   <div class="outro-message">
     <img class="outro-illustration" src="assets/personnage-clin-doeil.png"
          width="457" height="500" loading="lazy" alt="">
-    <p>Prends le temps de relier le sens de ces deux cartes : qu'est-ce que ce <strong class="c-turquoise">biais</strong> et cet <strong class="c-saumon">outil</strong>, mis ensemble, te disent de ce que tu vis en ce moment ? Laisse-toi un instant pour méditer là-dessus.</p>
+    <p>Prends le temps de relier le sens de ces deux cartes : qu'est-ce que ce <strong class="c-turquoise">biais</strong> et cet <strong class="c-saumon">outil</strong>, mis ensemble, te disent de ce que tu vis en ce moment ? Laisse-toi un instant pour méditer là-dessus.
+      <img class="oracle-illustration" src="assets/soleil-reflexion.png" width="256" height="256" loading="lazy" alt="" decoding="async">
+    </p>
   </div>
 </div>
 
@@ -419,6 +423,7 @@ function renderFiche(oracleId, e){
       <p class="fiche-def">${escapeHtml(ov.short || e.definition)}</p>
       ${ov.prompt ? `<div class="oracle-prompt">${escapeHtml(ov.prompt)}</div>` : ''}
       ${e.mantra ? `<div class="mantra">« ${escapeHtml(e.mantra)} »</div>` : ''}
+      <img class="oracle-illustration" src="assets/filtre-biais.png" width="256" height="256" alt="" decoding="async">
     `;
   } else {
     el.innerHTML = `
@@ -428,6 +433,7 @@ function renderFiche(oracleId, e){
       <p class="fiche-def">${escapeHtml(ov.short || e.principe)}</p>
       ${ov.prompt ? `<div class="oracle-prompt">${escapeHtml(ov.prompt)}</div>` : ''}
       ${e.mantra ? `<div class="mantra">« ${escapeHtml(e.mantra)} »</div>` : ''}
+      <img class="oracle-illustration" src="assets/ampoule-techniques.png" width="256" height="256" alt="" decoding="async">
     `;
   }
 }
