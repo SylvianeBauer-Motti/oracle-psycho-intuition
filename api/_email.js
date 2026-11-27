@@ -119,7 +119,7 @@ function dailyOracleEmailHtml({ biaisEntry, techEntry, unsubscribeUrl, firstName
     <div style="font-family: -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #2c2c2c;">
       <p style="font-size: 16px; text-align:left; margin:0 0 24px;">
         ${greeting}<br><br>
-        🌺 Que pouvons-nous apprendre de nous-mêmes en cette belle journée&#160;? 🌺
+        🌺 Pour bien démarrer la journée&#160;: quel tournicoti mental attire notre attention ce matin&#160;? Et quel outil nous aide à y voir «&#8239;plus clair&#8239;»&#160;? 🌺
       </p>
       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto; width:100%;">
         <tr>
